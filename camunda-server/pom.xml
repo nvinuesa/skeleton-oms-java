@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>oms</artifactId>
+		<groupId>com.github.underscorenico</groupId>
+		<version>0.1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>camunda-server</artifactId>
+	<packaging>war</packaging>
+
+	<developers>
+		<developer>
+			<id>underscorenico</id>
+			<name>Nicolas Vinuesa</name>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<properties>
+		<!-- Micro-service port -->
+		<tomcat.port>8080</tomcat.port>
+		<postgresql.version>9.4.1208</postgresql.version>
+
+		<spring.profiles.active>dev,local</spring.profiles.active>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mainClass>${project.groupId}.Application</mainClass>
+		<tomcat.path>${project.artifactId}</tomcat.path>
+		<maven-tomcat7-plugin.version>2.2</maven-tomcat7-plugin.version>
+		<springfox-swagger.version>2.4.0</springfox-swagger.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.camunda.bpm.extension.springboot</groupId>
+				<artifactId>camunda-bpm-spring-boot-starter-bom</artifactId>
+				<version>${camunda.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.underscorenico</groupId>
+				<artifactId>bpmn-processes</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- BPMN Processes -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>hello-process</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Spring dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<version>${spring-boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- PostgreSQL-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${maven-tomcat7-plugin.version}</version>
+				<configuration>
+					<path>/${tomcat.path}</path>
+					<port>${tomcat.port}</port>
+					<systemProperties>
+						<spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
+					</systemProperties>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

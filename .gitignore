@@ -1,0 +1,53 @@
+# .gitignore
+
+
+# Java
+*.class
+
+# Logs
+*.log
+log/
+logs/
+
+# Package Files
+target/
+*.jar
+*.war
+*.ear
+
+# Temporary files
+*~
+*.bak
+*.old
+*.tmp
+nohup.out
+tmp/
+
+# vim
+.*.sw[a-z]
+
+# IntelliJ
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.cache
+.classpath
+.project
+.scala_dependencies
+.settings/
+*.sc
+
+# Mac OS X
+._*
+.DS_Store
+
+# Windows
+Desktop.ini
+Thumbs.db
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
